@@ -40,7 +40,7 @@ public class TestWaitNotify {
         }, "t2").start();
 
         // 主线程两秒后执行
-        sleep(0.5);
+        sleep(2);
         log.debug("唤醒 obj 上其它线程");
         synchronized (obj) {
             obj.notify(); // 唤醒obj上随机一个线程

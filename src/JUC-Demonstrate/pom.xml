@@ -11,6 +11,7 @@
     <modules>
         <module>Java8</module>
         <module>JHM_Test</module>
+        <module>jhm_eliminate_locks</module>
     </modules>
 
     <properties>

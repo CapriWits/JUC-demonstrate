@@ -53,9 +53,18 @@ class TPTInterrupt {
 @Slf4j(topic = "c.TPTVolatile")
 class TPTVolatile {
     private Thread thread;
+    // 使用 volatile 修饰的可见变量，实现两阶段终止
     private volatile boolean stop = false;
+    // 判断是否执行过 start 方法
+    private boolean starting = false;
 
     public void start() {
+        synchronized (this) { // 对于判断是否执行过 start 方法需要原子性
+            if (starting) { // 这里体现出 同步模式的 Balking 模式
+                return;
+            }
+            starting = true;
+        }
         thread = new Thread(() -> {
             while (true) {
                 Thread current = Thread.currentThread();
