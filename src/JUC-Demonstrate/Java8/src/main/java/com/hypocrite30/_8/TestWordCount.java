@@ -25,15 +25,14 @@ import java.util.stream.IntStream;
 public class TestWordCount {
     public static void main(String[] args) {
         demo(
-                // 创建 map 集合
-                // 创建 ConcurrentHashMap 对不对？
+                // 只创建 ConcurrentHashMap 也不能解决并发问题
+                // 因为操作并不是原子的，需要原子操作computeIfAbsent解决，同时需要累加器LongAdder保证原子性
                 () -> new ConcurrentHashMap<String, LongAdder>(8, 0.75f, 8),
 
                 (map, words) -> {
                     for (String word : words) {
 
                         // 如果缺少一个 key，则计算生成一个 value , 然后将  key value 放入 map，否则什么都不做
-                        //                  a      0
                         LongAdder value = map.computeIfAbsent(word, (key) -> new LongAdder());
                         // 执行累加
                         value.increment(); // 2
@@ -51,7 +50,6 @@ public class TestWordCount {
 
 
     private static void demo2() {
-
         Map<String, Integer> collect = IntStream.range(1, 27).parallel()
                 .mapToObj(idx -> readFromFile(idx))
                 .flatMap(list -> list.stream())

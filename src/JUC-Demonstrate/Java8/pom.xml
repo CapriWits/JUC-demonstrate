@@ -36,13 +36,8 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>5.2.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>5.2.0.RELEASE</version>
+            <artifactId>spring-web</artifactId>
+            <version>4.2.4.RELEASE</version>
         </dependency>
     </dependencies>
 
